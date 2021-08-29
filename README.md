@@ -1,12 +1,14 @@
-# jokes-cms
+## Jokes-CMS
 
-1. Install docker(ubuntu): https://docs.docker.com/engine/install/ubuntu/
+## Installtion
 
-2. Run docker as non root user(ubuntu): https://docs.docker.com/engine/install/linux-postinstall/
+1. [Install docker(ubuntu)](https://docs.docker.com/engine/install/ubuntu/)
 
-3. Install docker-compose: https://docs.docker.com/compose/install/
+2. [Run docker as non root user(ubuntu)](https://docs.docker.com/engine/install/linux-postinstall/)
 
-    3.1 (read) Description docker coompose file v3: https://docs.docker.com/compose/compose-file/compose-file-v3/
+3. [Install docker-compose](https://docs.docker.com/compose/install/)
+
+    3.1 [(read) Description docker coompose file v3](https://docs.docker.com/compose/compose-file/compose-file-v3/)
 
 4. Visual Studio Code Extentions
     
@@ -14,13 +16,13 @@
 
     4.2 Install vscode db extention with name "MySQL cweijan"
 
-6. Build base image base-php-nginx: docker build --pull --rm -f "base-php-nginx.Dockerfile" -t jokes-cms/base-php-nginx "."
+6. Build base image: ```docker build --pull --rm -f "base-php-nginx.Dockerfile" -t jokes-cms/base-php-nginx "."```
 
-7. Run docker-compose build
+7. Run ```docker-compose build```
 
-8. Run docker-compose up -d
+8. Run ```docker-compose up -d```
 
-9. Run following DDL – Data Definition Language to create tables:
+9. Create DB tables:
 ```
 CREATE TABLE joke (
     id int(11) NOT NULL AUTO_INCREMENT,  
@@ -52,8 +54,9 @@ CREATE TABLE `author` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8
 ```
 
-9. Remove containers, volumes and network and images: docker-compose down -v --rmi all
+### Run ```docker-compose down -v --rmi all``` to remove containers, volumes and network and images
 
-credits to: 
-Docker: https://github.com/BretFisher/php-docker-good-defaults/blob/master/Dockerfile
-PHP Novice to Ninja: https://github.com/spbooks/phpmysql6
+
+### Credits to:
+[Docker](https://github.com/BretFisher/php-docker-good-defaults/blob/master/Dockerfile)
+[PHP Novice to Ninja](https://github.com/spbooks/phpmysql6)
