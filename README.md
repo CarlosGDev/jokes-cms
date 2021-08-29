@@ -21,7 +21,7 @@
 8. Run docker-compose up -d
 
 9. Run following DDL – Data Definition Language to create tables:
-<!---
+```
 CREATE TABLE joke (
     id int(11) NOT NULL AUTO_INCREMENT,  
     joketext text,
@@ -50,7 +50,7 @@ CREATE TABLE `author` (
     `permissions` int(64) NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`) 
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8
--->
+```
 
 9. Remove containers, volumes and network and images: docker-compose down -v --rmi all
 
