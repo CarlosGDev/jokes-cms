@@ -54,9 +54,11 @@ CREATE TABLE `author` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8
 ```
 
-### Run ```docker-compose down -v --rmi all``` to remove containers, volumes and network and images
+### Run ```docker-compose down -v --rmi all``` to remove containers, volumes, network and images
 
 
 ### Credits to:
+
 [Docker](https://github.com/BretFisher/php-docker-good-defaults/blob/master/Dockerfile)
+
 [PHP Novice to Ninja](https://github.com/spbooks/phpmysql6)
