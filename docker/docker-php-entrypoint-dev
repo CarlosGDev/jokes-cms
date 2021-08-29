@@ -1,0 +1,33 @@
+#!/bin/sh
+set -e
+
+# run last minute build tools just for local dev
+# this file should just be used to override on local dev in a compose file
+
+# run default entrypoint first
+/usr/local/bin/docker-php-entrypoint
+
+# ensure bind mount permissions are what we need
+chown -R :www-data /var/www/app/classes/ \
+	/var/www/app/classes/Ijdb/Controllers/ \
+	/var/www/app/classes/Ijdb/Entity/ \
+	/var/www/app/includes/ \
+	/var/www/app/public/ \
+	/var/www/app/templates/ \
+	/var/www/app/database.sql
+
+chmod -R g+w /var/www/app/classes/ \
+	/var/www/app/classes/Ijdb/Controllers/ \
+	/var/www/app/classes/Ijdb/Entity/ \
+	/var/www/app/includes/ \
+	/var/www/app/public/ \
+	/var/www/app/templates/ \
+	/var/www/app/database.sql
+  
+# run last minute build tools just for local dev
+#cd /var/www/app
+#composer dump-autoload
+cd /var/www/app/public
+
+
+exec "$@"
