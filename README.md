@@ -61,4 +61,6 @@ CREATE TABLE `author` (
 
 [Docker](https://github.com/BretFisher/php-docker-good-defaults/blob/master/Dockerfile)
 
+[Docker Compose Viz](https://github.com/pmsipilot/docker-compose-viz)
+
 [PHP Novice to Ninja](https://github.com/spbooks/phpmysql6)
