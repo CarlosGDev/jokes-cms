@@ -1,0 +1,17 @@
+{
+  "name": "jokes-cms",
+  "version": "1.0.0",
+  "description": "You can create your own jokes and store in database.",
+  "main": "index.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "jokes"
+  ],
+  "author": "Carlos Gonçalves & Manuel Gonçalves",
+  "license": "ISC",
+  "dependencies": {
+    "node-sass": "^6.0.1"
+  }
+}
