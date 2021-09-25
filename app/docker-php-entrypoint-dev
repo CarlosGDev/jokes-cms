@@ -27,7 +27,7 @@ chmod -R g+w /var/www/app/classes/ \
 # run last minute build tools just for local dev
 #cd /var/www/app
 #composer dump-autoload
-cd /var/www/app/public
+cd /var/www/app
 
 
 exec "$@"

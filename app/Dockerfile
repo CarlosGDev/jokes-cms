@@ -22,14 +22,14 @@ FROM jokes-cms/base-php-nginx
 ##
 
 # we hardcode to develop so all tools are there for npm build
-#ENV NODE_ENV=develop
+ENV NODE_ENV=develop
 # install dependencies first, in a different location for easier app bind mounting for local development
-#WORKDIR /var/www
-#COPY ./package.json .
-##RUN npm install
+WORKDIR /var/www
+COPY ./package.json .
+RUN npm install
 # no need to cache clean in non-final build steps
-#ENV PATH /var/www/node_modules/.bin:$PATH
-#ENV NODE_PATH=/var/www/node_modules
+ENV PATH /var/www/node_modules/.bin:$PATH
+ENV NODE_PATH=/var/www/node_modules
 WORKDIR /var/www/app
 
 ##
