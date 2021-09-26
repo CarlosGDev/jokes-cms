@@ -1,5 +1,7 @@
 FROM jokes-cms/base-php-nginx
 
+RUN npm i -g npm@next
+
 # add bitbucket and github to known hosts for ssh needs
 #WORKDIR /root/.ssh
 #RUN chmod 0600 /root/.ssh \
@@ -17,6 +19,12 @@ FROM jokes-cms/base-php-nginx
 #RUN composer config github-oauth.github.com YOUROAUTHKEYHERE
 #RUN composer install --no-scripts --no-autoloader --ansi --no-interaction
 
+
+RUN usermod -u 1000 www-data \
+    && chown www-data:www-data /var/www
+
+WORKDIR /var/www
+
 ##
 ## Node Build Tools
 ##
@@ -24,13 +32,10 @@ FROM jokes-cms/base-php-nginx
 # we hardcode to develop so all tools are there for npm build
 ENV NODE_ENV=develop
 # install dependencies first, in a different location for easier app bind mounting for local development
-WORKDIR /var/www
-COPY ./package.json .
-RUN npm install
-# no need to cache clean in non-final build steps
+COPY --chown=www-data:www-data ./app/package.json ./app/package-lock.json* ./
+RUN npm install --no-optional && npm cache clean --force
 ENV PATH /var/www/node_modules/.bin:$PATH
 ENV NODE_PATH=/var/www/node_modules
-WORKDIR /var/www/app
 
 ##
 ## We Are Go for Bower
@@ -66,25 +71,23 @@ ENV APP_NAME=jokes-cms \
 # update the entrypoint to write config files and do last minute builds on startup
 # notice we have a -dev version, which does different things on local docker-compose
 # but we'll default to entrypoint of running the non -dev one
-COPY docker-php-* /usr/local/bin/
+COPY ./docker/docker-php-* /usr/local/bin/
 RUN dos2unix /usr/local/bin/docker-php-entrypoint
 RUN dos2unix /usr/local/bin/docker-php-entrypoint-dev
 
 # copy in nginx config
-COPY ./nginx.conf /etc/nginx/nginx.conf
-COPY ./nginx-site.conf /etc/nginx/conf.d/default.conf
-
+COPY ./docker/nginx.conf /etc/nginx/nginx.conf
+COPY ./docker/nginx-site.conf /etc/nginx/conf.d/default.conf
 
 # copy in app code as late as possible, as it changes the most
 WORKDIR /var/www/app
-COPY --chown=www-data:www-data . .
+COPY --chown=www-data:www-data ./app .
 #RUN composer dump-autoload -o
 
 # be sure nginx is properly passing to php-fpm and fpm is responding
 HEALTHCHECK --interval=5s --timeout=3s \
   CMD curl -f http://localhost/ping || exit 1
 
-WORKDIR /var/www/app/public
 EXPOSE 80 443 9000 9001
 
 CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
